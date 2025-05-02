@@ -40,3 +40,65 @@ body {
   color: var(--color-text);
   font-family: var(--font-body);
 }
+
+/* Glassmorphism effect */
+.glassmorphism {
+  background: rgba(9, 2, 17, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(228, 65, 165, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(82, 0, 197, 0.1);
+}
+
+.glassmorphism-card {
+  background: rgba(9, 2, 17, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  border: 1px solid rgba(228, 65, 165, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glassmorphism-card:hover {
+  background: rgba(9, 2, 17, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(82, 0, 197, 0.2);
+  border: 1px solid rgba(228, 65, 165, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Animation utilities */
+.hover-float {
+  transition: transform 0.3s ease;
+}
+
+.hover-float:hover {
+  transform: translateY(-5px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(9, 2, 17, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(82, 0, 197, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(153, 21, 127, 0.7);
+}
+
+/* Hide default cursor when custom cursor is active */
+.no-cursor {
+  cursor: none !important;
+}
+
+/* Also ensure that all elements respect the cursor: none setting */
+.no-cursor * {
+  cursor: none !important;
+}
