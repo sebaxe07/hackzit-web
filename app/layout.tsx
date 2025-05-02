@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Sans_Thai } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// Initialize the IBM Plex Sans Thai font
+const ibmPlexSansThai = IBM_Plex_Sans_Thai({
+  weight: ["400", "700"],
+  subsets: ["latin", "thai"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,9 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${ibmPlexSansThai.className} antialiased`}>
         {children}
       </body>
     </html>
