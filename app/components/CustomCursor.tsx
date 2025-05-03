@@ -14,13 +14,47 @@ const CustomCursor = () => {
   const [isPointer, setIsPointer] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const touchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Create spring physics for smoother motion with better conservation of momentum
   const springConfig = { damping: 20, stiffness: 250, mass: 0.25 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
+  // Customizable trail properties
+  const trailCount = 5;
+
+  // Initialize trail spring configurations outside of the render function
+  const trailConfigs = Array.from({ length: trailCount }).map((_, i) => {
+    return {
+      damping: 18 - i * 1.5, // Less damping = more bounce
+      stiffness: 180 - i * 20, // Less stiffness = more elastic
+      mass: 0.2 + i * 0.07, // More mass = more inertia
+      restSpeed: 0.001,
+      restDelta: 0.001,
+    };
+  });
+
+  // Pre-initialize all trail springs to avoid conditional hook calls
+  const trailSprings = trailConfigs.map(() => {
+    return {
+      x: useSpring(cursorXSpring, springConfig),
+      y: useSpring(cursorYSpring, springConfig),
+    };
+  });
+
   useEffect(() => {
+    // Check if device is touch-enabled
+    const detectTouchDevice = () => {
+      setIsTouchDevice(
+        "ontouchstart" in window ||
+          navigator.maxTouchPoints > 0 ||
+          navigator.maxTouchPoints > 0
+      );
+    };
+    detectTouchDevice();
+
     // For storing and updating cursor position history
     const positionHistory = positions.current;
     const maxPositions = 10; // Store 10 past positions for trail calculation
@@ -45,6 +79,30 @@ const CustomCursor = () => {
       }
     };
 
+    const touchStartHandler = (e: TouchEvent) => {
+      // Clear any existing timeout
+      if (touchTimeoutRef.current) {
+        clearTimeout(touchTimeoutRef.current);
+      }
+
+      const touch = e.touches[0];
+      mouseX = touch.clientX;
+      mouseY = touch.clientY;
+
+      setIsVisible(true);
+      setIsActive(true);
+
+      if (!requestId) {
+        requestId = requestAnimationFrame(updateCursorPosition);
+      }
+
+      // Hide cursor after animation completes (for touch devices)
+      touchTimeoutRef.current = setTimeout(() => {
+        setIsActive(false);
+        setIsVisible(false);
+      }, 600);
+    };
+
     const updateCursorPosition = () => {
       // Update the main cursor position
       cursorX.set(mouseX);
@@ -62,7 +120,9 @@ const CustomCursor = () => {
     };
 
     const mouseEnterHandler = () => {
-      setIsVisible(true);
+      if (!isTouchDevice) {
+        setIsVisible(true);
+      }
     };
 
     const mouseDownHandler = () => {
@@ -105,12 +165,17 @@ const CustomCursor = () => {
     document.addEventListener("mouseup", mouseUpHandler);
     document.addEventListener("mouseleave", mouseLeaveHandler);
     document.addEventListener("mouseenter", mouseEnterHandler);
+    document.addEventListener("touchstart", touchStartHandler, {
+      passive: true,
+    });
 
     // Call the cursor style handler and store its cleanup function
     const cursorCleanup = mouseCursorHandler();
 
-    // Hide default cursor
-    document.body.classList.add("no-cursor");
+    // Hide default cursor only on non-touch devices
+    if (!isTouchDevice) {
+      document.body.classList.add("no-cursor");
+    }
 
     // Clean up
     return () => {
@@ -119,6 +184,7 @@ const CustomCursor = () => {
       document.removeEventListener("mouseup", mouseUpHandler);
       document.removeEventListener("mouseleave", mouseLeaveHandler);
       document.removeEventListener("mouseenter", mouseEnterHandler);
+      document.removeEventListener("touchstart", touchStartHandler);
 
       if (cursorCleanup) cursorCleanup();
       document.body.classList.remove("no-cursor");
@@ -126,11 +192,17 @@ const CustomCursor = () => {
       if (requestId) {
         cancelAnimationFrame(requestId);
       }
-    };
-  }, [cursorX, cursorY, isVisible]);
 
-  // Customizable trail properties
-  const trailCount = 5;
+      if (touchTimeoutRef.current) {
+        clearTimeout(touchTimeoutRef.current);
+      }
+    };
+  }, [cursorX, cursorY, isVisible, isTouchDevice]);
+
+  // Don't render anything for non-active touch devices
+  if (isTouchDevice && !isActive) {
+    return null;
+  }
 
   return (
     <>
@@ -169,19 +241,6 @@ const CustomCursor = () => {
         const size = (isPointer ? 40 : 25) * (1 - i * 0.15);
         const opacity = 0.5 - i * 0.1;
 
-        // Different spring configuration for each trail element
-        const trailSpringConfig = {
-          damping: 18 - i * 1.5, // Less damping = more bounce
-          stiffness: 180 - i * 20, // Less stiffness = more elastic
-          mass: 0.2 + i * 0.07, // More mass = more inertia
-          restSpeed: 0.001,
-          restDelta: 0.001,
-        };
-
-        // Create individual springs for each trail element with increasing delay
-        const trailX = useSpring(cursorXSpring, trailSpringConfig);
-        const trailY = useSpring(cursorYSpring, trailSpringConfig);
-
         return (
           <motion.div
             key={i}
@@ -191,8 +250,8 @@ const CustomCursor = () => {
             style={{
               width: size,
               height: size,
-              x: trailX,
-              y: trailY,
+              x: trailSprings[i].x,
+              y: trailSprings[i].y,
               translateX: "-50%",
               translateY: "-50%",
               opacity: opacity * (isVisible ? 1 : 0),

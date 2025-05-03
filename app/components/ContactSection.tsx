@@ -138,7 +138,7 @@ const ContactSection = () => {
             }
           >
             <FaLanguage size={20} />
-            <span>{language === "en" ? "ES" : "EN"}</span>
+            <span>{language === "en" ? "EN" : "ES"}</span>
           </button>
         </div>
 

@@ -215,7 +215,7 @@ const Footer = () => {
                 >
                   <FaLanguage size={18} />
                   <span className="text-sm">
-                    {language === "en" ? "Español" : "English"}
+                    {language === "en" ? "EN" : "ES"}
                   </span>
                 </button>
               </div>

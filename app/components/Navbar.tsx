@@ -132,7 +132,7 @@ const Navbar = () => {
             }
           >
             <FaLanguage className="text-lg" />
-            <span className="text-sm">{language === "en" ? "ES" : "EN"}</span>
+            <span className="text-sm">{language === "en" ? "EN" : "ES"}</span>
           </button>
         </div>
 
@@ -203,7 +203,7 @@ const Navbar = () => {
               }
             >
               <FaLanguage size={20} />
-              <span>{language === "en" ? "Español" : "English"}</span>
+              <span>{language === "en" ? "EN" : "ES"}</span>
             </button>
           </div>
         </motion.div>

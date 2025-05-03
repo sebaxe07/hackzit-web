@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "HackZit - Software Development Company",
   description:
     "Full-stack software development company specializing in custom applications, mobile solutions, enterprise software, and cutting-edge technologies.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
