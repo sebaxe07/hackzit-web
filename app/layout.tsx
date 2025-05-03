@@ -5,6 +5,7 @@ import CustomCursor from "./components/CustomCursor";
 import RippleEffect from "./components/RippleEffect";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import HtmlLanguageWrapper from "./components/HtmlLanguageWrapper";
+import { Analytics } from "@vercel/analytics/react";
 
 // Initialize the IBM Plex Sans Thai font
 const ibmPlexSansThai = IBM_Plex_Sans_Thai({
@@ -95,6 +96,7 @@ export default function RootLayout({
           <CustomCursor />
           <RippleEffect />
           {children}
+          <Analytics />
         </body>
       </HtmlLanguageWrapper>
     </LanguageProvider>
