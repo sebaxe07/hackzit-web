@@ -130,22 +130,34 @@ const Footer = () => {
           <div className="md:col-span-1">
             <h3 className="text-xl font-bold mb-4 text-text">Contact Us</h3>
             <address className="not-italic">
-              <p className="text-text/70 mb-2">123 Innovation Street</p>
-              <p className="text-text/70 mb-4">San Francisco, CA 94107</p>
               <p className="text-text/70 mb-2">
                 <a
-                  href="mailto:info@hackzit.com"
+                  href="mailto:hackzit.dev@gmail.com"
                   className="hover:text-accent transition-colors"
                 >
-                  info@hackzit.com
+                  hackzit.dev@gmail.com
+                </a>
+                <br />
+                <a
+                  href="mailto:sebaxe09@gmail.com"
+                  className="hover:text-accent transition-colors"
+                >
+                  sebaxe09@gmail.com
                 </a>
               </p>
               <p className="text-text/70">
                 <a
-                  href="tel:+1234567890"
-                  className="hover:text-accent transition-colors"
+                  href="tel:+393443422393"
+                  className="text-text/70 hover:text-accent transition-colors"
                 >
-                  +1 (234) 567-890
+                  +39 (344) 342 2393
+                </a>
+                <br />
+                <a
+                  href="tel:+573217551344"
+                  className="text-text/70 hover:text-accent transition-colors"
+                >
+                  +57 (321) 755 1344
                 </a>
               </p>
             </address>

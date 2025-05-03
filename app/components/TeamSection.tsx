@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
 import Image from "next/image";
 
 const teamMembers = [
@@ -24,6 +24,24 @@ const teamMembers = [
     github: "https://github.com/ChristianMA19",
     linkedin:
       "https://www.linkedin.com/in/christiandavidmangaarrazola-webdeveloper/",
+  },
+  {
+    id: 3,
+    name: "Carlos Otero",
+    role: "Co-founder & Front-end Developer",
+    bio: "Systems Engineer with a passion for technology and a focus on web development. Experienced in creating user-friendly applications and optimizing performance.",
+    image: "/PictureCarlos.jpg",
+    github: "https://github.com/carlos204658",
+    linkedin: "https://www.linkedin.com/in/carlos-otero-926846300/",
+  },
+  {
+    id: 4,
+    name: "Marcela Rivaldo",
+    role: "Creative Director",
+    bio: "Graphic Designer and Illustrator specializing in user-centered solutions. Combines strategic vision with creative exploration to craft bold visual identities and digital experiences that elevate brand perception.",
+    image: "/PictureMarce.jpg",
+    web: "https://marcelarivaldo.myportfolio.com/",
+    linkedin: "https://www.linkedin.com/in/dayana-marcela-rivaldo/",
   },
 ];
 
@@ -112,24 +130,39 @@ const TeamSection = () => {
                 <p className="text-text/70 text-sm mb-4">{member.bio}</p>
 
                 <div className="flex space-x-4">
-                  <a
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-text/60 hover:text-accent transition-colors"
-                    aria-label={`${member.name}'s GitHub`}
-                  >
-                    <FaGithub size={20} />
-                  </a>
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-text/60 hover:text-accent transition-colors"
-                    aria-label={`${member.name}'s LinkedIn`}
-                  >
-                    <FaLinkedin size={20} />
-                  </a>
+                  {member.github && (
+                    <a
+                      href={member.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-text/60 hover:text-accent transition-colors"
+                      aria-label={`${member.name}'s GitHub`}
+                    >
+                      <FaGithub size={20} />
+                    </a>
+                  )}
+                  {member.web && (
+                    <a
+                      href={member.web}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-text/60 hover:text-accent transition-colors"
+                      aria-label={`${member.name}'s Website`}
+                    >
+                      <FaGlobe size={20} />
+                    </a>
+                  )}
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-text/60 hover:text-accent transition-colors"
+                      aria-label={`${member.name}'s LinkedIn`}
+                    >
+                      <FaLinkedin size={20} />
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>
