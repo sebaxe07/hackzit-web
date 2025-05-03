@@ -2,7 +2,53 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FaEnvelope, FaPhone, FaPaperPlane } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaPaperPlane, FaLanguage } from "react-icons/fa";
+import { useLanguage } from "../contexts/LanguageContext";
+
+// Translations object with English and Spanish text
+const translations = {
+  en: {
+    getInTouch: "Get In Touch",
+    projectDescription:
+      "Have a project in mind or want to learn more about our services? Contact us!",
+    contactInformation: "Contact Information",
+    email: "Email",
+    phone: "Phone",
+    followUs: "Follow Us",
+    sendMessage: "Send Us a Message",
+    successMessage: "Thanks for your message! We'll get back to you soon.",
+    yourName: "Your Name",
+    yourEmail: "Your Email",
+    subject: "Subject",
+    yourMessage: "Your Message",
+    messagePlaceholder: "Tell us about your project...",
+    send: "Send Message",
+    namePlaceholder: "John Smith",
+    emailPlaceholder: "john@example.com",
+    subjectPlaceholder: "Project Inquiry",
+  },
+  es: {
+    getInTouch: "Ponte en Contacto",
+    projectDescription:
+      "¿Tienes un proyecto en mente o quieres saber más sobre nuestros servicios? ¡Contáctanos!",
+    contactInformation: "Información de Contacto",
+    email: "Correo",
+    phone: "Teléfono",
+    followUs: "Síguenos",
+    sendMessage: "Envíanos un Mensaje",
+    successMessage:
+      "¡Gracias por tu mensaje! Nos pondremos en contacto pronto.",
+    yourName: "Tu Nombre",
+    yourEmail: "Tu Correo",
+    subject: "Asunto",
+    yourMessage: "Tu Mensaje",
+    messagePlaceholder: "Cuéntanos sobre tu proyecto...",
+    send: "Enviar Mensaje",
+    namePlaceholder: "Juan Pérez",
+    emailPlaceholder: "juan@ejemplo.com",
+    subjectPlaceholder: "Consulta de Proyecto",
+  },
+};
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +63,12 @@ const ContactSection = () => {
     success: false,
     message: "",
   });
+
+  // Use the global language context instead of local state
+  const { language, toggleLanguage } = useLanguage();
+
+  // Get translations based on current language
+  const t = translations[language];
 
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
@@ -39,7 +91,7 @@ const ContactSection = () => {
     setFormStatus({
       submitted: true,
       success: true,
-      message: "Thanks for your message! We'll get back to you soon.",
+      message: t.successMessage,
     });
 
     // Reset form after submission
@@ -77,6 +129,19 @@ const ContactSection = () => {
       </div>
 
       <div className="container mx-auto px-4">
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={toggleLanguage}
+            className="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-full text-primary transition-colors"
+            aria-label={
+              language === "en" ? "Switch to Spanish" : "Cambiar a inglés"
+            }
+          >
+            <FaLanguage size={20} />
+            <span>{language === "en" ? "ES" : "EN"}</span>
+          </button>
+        </div>
+
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -84,11 +149,10 @@ const ContactSection = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-            Get In Touch
+            {t.getInTouch}
           </h2>
           <p className="text-xl text-text/80 max-w-2xl mx-auto">
-            Have a project in mind or want to learn more about our services?
-            Contact us!
+            {t.projectDescription}
           </p>
         </motion.div>
 
@@ -102,7 +166,7 @@ const ContactSection = () => {
           >
             <div className="bg-background/30 backdrop-blur-md rounded-xl p-8 border border-accent/10 h-full">
               <h3 className="text-2xl font-bold mb-6 text-text">
-                Contact Information
+                {t.contactInformation}
               </h3>
 
               <div className="space-y-6">
@@ -111,7 +175,7 @@ const ContactSection = () => {
                     <FaEnvelope className="text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium text-text">Email</p>
+                    <p className="font-medium text-text">{t.email}</p>
                     <a
                       href="mailto:hackzit.dev@gmail.com"
                       className="hover:text-accent transition-colors"
@@ -133,7 +197,7 @@ const ContactSection = () => {
                     <FaPhone className="text-secondary" />
                   </div>
                   <div>
-                    <p className="font-medium text-text">Phone</p>
+                    <p className="font-medium text-text">{t.phone}</p>
                     <a
                       href="tel:+1234567890"
                       className="text-text/70 hover:text-accent transition-colors"
@@ -152,9 +216,10 @@ const ContactSection = () => {
               </div>
 
               <div className="mt-12">
-                <p className="font-medium text-text mb-2">Follow Us</p>
+                <p className="font-medium text-text mb-2">{t.followUs}</p>
                 <div className="flex space-x-4">
-                  {/* Disabled Facebook icon */}
+                  {/* Social media icons remain unchanged */}
+                  {/* ... existing social media icons ... */}
                   <span
                     className="p-3 bg-primary/5 rounded-full cursor-not-allowed opacity-50"
                     title="Coming soon"
@@ -241,7 +306,7 @@ const ContactSection = () => {
           >
             <div className="bg-background/30 backdrop-blur-md rounded-xl p-8 border border-accent/10">
               <h3 className="text-2xl font-bold mb-6 text-text">
-                Send Us a Message
+                {t.sendMessage}
               </h3>
 
               {formStatus.submitted ? (
@@ -264,7 +329,7 @@ const ContactSection = () => {
                     htmlFor="name"
                     className="block mb-2 text-sm font-medium text-text"
                   >
-                    Your Name
+                    {t.yourName}
                   </label>
                   <input
                     type="text"
@@ -274,7 +339,7 @@ const ContactSection = () => {
                     onChange={handleChange}
                     required
                     className="w-full p-3 bg-background/60 border border-accent/20 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-accent/50 text-text placeholder:text-text/50"
-                    placeholder="John Smith"
+                    placeholder={t.namePlaceholder}
                   />
                 </motion.div>
 
@@ -283,7 +348,7 @@ const ContactSection = () => {
                     htmlFor="email"
                     className="block mb-2 text-sm font-medium text-text"
                   >
-                    Your Email
+                    {t.yourEmail}
                   </label>
                   <input
                     type="email"
@@ -293,7 +358,7 @@ const ContactSection = () => {
                     onChange={handleChange}
                     required
                     className="w-full p-3 bg-background/60 border border-accent/20 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-accent/50 text-text placeholder:text-text/50"
-                    placeholder="john@example.com"
+                    placeholder={t.emailPlaceholder}
                   />
                 </motion.div>
 
@@ -302,7 +367,7 @@ const ContactSection = () => {
                     htmlFor="subject"
                     className="block mb-2 text-sm font-medium text-text"
                   >
-                    Subject
+                    {t.subject}
                   </label>
                   <input
                     type="text"
@@ -312,7 +377,7 @@ const ContactSection = () => {
                     onChange={handleChange}
                     required
                     className="w-full p-3 bg-background/60 border border-accent/20 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-accent/50 text-text placeholder:text-text/50"
-                    placeholder="Project Inquiry"
+                    placeholder={t.subjectPlaceholder}
                   />
                 </motion.div>
 
@@ -321,7 +386,7 @@ const ContactSection = () => {
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-text"
                   >
-                    Your Message
+                    {t.yourMessage}
                   </label>
                   <textarea
                     id="message"
@@ -331,7 +396,7 @@ const ContactSection = () => {
                     onChange={handleChange}
                     required
                     className="w-full p-3 bg-background/60 border border-accent/20 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-accent/50 text-text placeholder:text-text/50"
-                    placeholder="Tell us about your project..."
+                    placeholder={t.messagePlaceholder}
                   />
                 </motion.div>
 
@@ -340,7 +405,7 @@ const ContactSection = () => {
                     type="submit"
                     className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-accent text-white rounded-lg hover:opacity-90 transition-opacity"
                   >
-                    Send Message <FaPaperPlane />
+                    {t.send} <FaPaperPlane />
                   </button>
                 </motion.div>
               </form>

@@ -4,10 +4,34 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { smoothScrollTo } from "../lib/scrollUtils";
+import { FaLanguage } from "react-icons/fa";
+import { useLanguage } from "../contexts/LanguageContext";
+
+// Translations for navbar items
+const translations = {
+  en: {
+    solutions: "Solutions",
+    technologies: "Technologies",
+    projects: "Projects",
+    team: "Team",
+    contact: "Contact",
+  },
+  es: {
+    solutions: "Soluciones",
+    technologies: "Tecnologías",
+    projects: "Proyectos",
+    team: "Equipo",
+    contact: "Contacto",
+  },
+};
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, toggleLanguage } = useLanguage();
+
+  // Get translations based on current language
+  const t = translations[language];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,36 +92,48 @@ const Navbar = () => {
             className="text-text hover:text-accent transition-colors"
             onClick={(e) => handleNavClick(e, "services")}
           >
-            Solutions
+            {t.solutions}
           </a>
           <a
             href="#technologies"
             className="text-text hover:text-accent transition-colors"
             onClick={(e) => handleNavClick(e, "technologies")}
           >
-            Technologies
+            {t.technologies}
           </a>
           <a
             href="#projects"
             className="text-text hover:text-accent transition-colors"
             onClick={(e) => handleNavClick(e, "projects")}
           >
-            Projects
+            {t.projects}
           </a>
           <a
             href="#team"
             className="text-text hover:text-accent transition-colors"
             onClick={(e) => handleNavClick(e, "team")}
           >
-            Team
+            {t.team}
           </a>
           <a
             href="#contact"
             className="text-text hover:text-accent transition-colors"
             onClick={(e) => handleNavClick(e, "contact")}
           >
-            Contact
+            {t.contact}
           </a>
+
+          {/* Language Toggle Button */}
+          <button
+            onClick={toggleLanguage}
+            className="flex items-center gap-1 text-text hover:text-accent transition-colors"
+            aria-label={
+              language === "en" ? "Switch to Spanish" : "Cambiar a inglés"
+            }
+          >
+            <FaLanguage className="text-lg" />
+            <span className="text-sm">{language === "en" ? "ES" : "EN"}</span>
+          </button>
         </div>
 
         {/* Mobile menu button */}
@@ -127,36 +163,48 @@ const Navbar = () => {
               className="text-text hover:text-accent transition-colors py-2"
               onClick={(e) => handleNavClick(e, "services")}
             >
-              Solutions
+              {t.solutions}
             </a>
             <a
               href="#projects"
               className="text-text hover:text-accent transition-colors py-2"
               onClick={(e) => handleNavClick(e, "projects")}
             >
-              Projects
+              {t.projects}
             </a>
             <a
               href="#technologies"
               className="text-text hover:text-accent transition-colors py-2"
               onClick={(e) => handleNavClick(e, "technologies")}
             >
-              Technologies
+              {t.technologies}
             </a>
             <a
               href="#team"
               className="text-text hover:text-accent transition-colors py-2"
               onClick={(e) => handleNavClick(e, "team")}
             >
-              Team
+              {t.team}
             </a>
             <a
               href="#contact"
               className="text-text hover:text-accent transition-colors py-2"
               onClick={(e) => handleNavClick(e, "contact")}
             >
-              Contact
+              {t.contact}
             </a>
+
+            {/* Mobile Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 py-2 text-text hover:text-accent transition-colors"
+              aria-label={
+                language === "en" ? "Switch to Spanish" : "Cambiar a inglés"
+              }
+            >
+              <FaLanguage size={20} />
+              <span>{language === "en" ? "Español" : "English"}</span>
+            </button>
           </div>
         </motion.div>
       )}

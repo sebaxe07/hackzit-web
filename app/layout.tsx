@@ -3,6 +3,8 @@ import { IBM_Plex_Sans_Thai } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
 import RippleEffect from "./components/RippleEffect";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import HtmlLanguageWrapper from "./components/HtmlLanguageWrapper";
 
 // Initialize the IBM Plex Sans Thai font
 const ibmPlexSansThai = IBM_Plex_Sans_Thai({
@@ -23,12 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${ibmPlexSansThai.className} antialiased`}>
-        <CustomCursor />
-        <RippleEffect />
-        {children}
-      </body>
-    </html>
+    <LanguageProvider>
+      <HtmlLanguageWrapper>
+        <body className={`${ibmPlexSansThai.className} antialiased`}>
+          <CustomCursor />
+          <RippleEffect />
+          {children}
+        </body>
+      </HtmlLanguageWrapper>
+    </LanguageProvider>
   );
 }

@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaClock } from "react-icons/fa";
 import Image from "next/image";
 import projectsData from "../data/projects.json";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface Project {
   id: number;
@@ -17,26 +18,41 @@ interface Project {
   featured: boolean;
 }
 
+// Translations for projects section
+const translations = {
+  en: {
+    sectionTitle: "Featured Projects",
+    sectionDescription:
+      "Explore our diverse portfolio of custom software solutions deployed across multiple platforms and industries.",
+    github: "GitHub",
+    liveDemo: "Live Demo",
+    comingSoonTitle: "Coming Soon",
+    comingSoonDesc:
+      "Our featured projects are currently under development. Check back soon to see our latest work!",
+  },
+  es: {
+    sectionTitle: "Proyectos Destacados",
+    sectionDescription:
+      "Explora nuestro diverso portafolio de soluciones de software personalizadas implementadas en múltiples plataformas e industrias.",
+    github: "GitHub",
+    liveDemo: "Demo en Vivo",
+    comingSoonTitle: "Próximamente",
+    comingSoonDesc:
+      "Nuestros proyectos destacados están actualmente en desarrollo. ¡Vuelve pronto para ver nuestro trabajo más reciente!",
+  },
+};
+
 const projectsDataTyped: Project[] = projectsData as Project[];
 const projects = projectsDataTyped
   .filter((project) => project.featured)
   .slice(0, 4);
 // Filter only featured projects or adjust count as needed
-/* Data structure:
-{
-    "id": 1,
-    "title": "Enterprise Resource Planning System",
-    "description": "A comprehensive ERP solution with modules for inventory management, HR, accounting, and business intelligence dashboards.",
-    "image": "/file.svg",
-    "technologies": ["C#", ".NET Core", "SQL Server", "React", "Power BI"],
-    "githubUrl": "https://github.com/hackzit/enterprise-erp",
-    "liveUrl": "https://example.com/erp-demo",
-    "featured": true
-} */
 
 const ProjectsSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
+  const { language } = useLanguage();
+  const t = translations[language];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -69,11 +85,10 @@ const ProjectsSection = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Featured Projects
+            {t.sectionTitle}
           </h2>
           <p className="text-xl text-text/80 max-w-2xl mx-auto">
-            Explore our diverse portfolio of custom software solutions deployed
-            across multiple platforms and industries.
+            {t.sectionDescription}
           </p>
         </motion.div>
 
@@ -126,7 +141,7 @@ const ProjectsSection = () => {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-text hover:text-accent transition-colors"
                     >
-                      <FaGithub /> GitHub
+                      <FaGithub /> {t.github}
                     </a>
                     <a
                       href={project.liveUrl}
@@ -134,7 +149,7 @@ const ProjectsSection = () => {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-text hover:text-accent transition-colors"
                     >
-                      <FaExternalLinkAlt /> Live Demo
+                      <FaExternalLinkAlt /> {t.liveDemo}
                     </a>
                   </div>
                 </div>
@@ -150,11 +165,10 @@ const ProjectsSection = () => {
                 <FaClock className="text-6xl text-primary/70 animate-pulse" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-text text-center mb-4">
-                Coming Soon
+                {t.comingSoonTitle}
               </h3>
               <p className="text-xl text-text/80 text-center max-w-md">
-                Our featured projects are currently under development. Check
-                back soon to see our latest work!
+                {t.comingSoonDesc}
               </p>
             </motion.div>
           )}

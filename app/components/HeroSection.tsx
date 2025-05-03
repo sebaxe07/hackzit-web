@@ -1,28 +1,44 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { smoothScrollTo } from "../lib/scrollUtils";
+import { useLanguage } from "../contexts/LanguageContext";
 
-// Define particle generator function outside component to avoid recreation
-const generateParticles = (count: number) => {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 250 + 50,
-    opacity: Math.random() * 0.3 + 0.1,
-    duration: Math.random() * 25 + 15,
-    delay: 0, // Remove delay to start animation immediately
-  }));
+// Translations for hero section
+const translations = {
+  en: {
+    title: "Transforming Ideas Into Powerful Software Solutions",
+    description:
+      "HackZit is a full-stack software development company specializing in custom applications, mobile solutions, enterprise software, and cutting-edge technologies.",
+    projects: "Our Projects",
+    contact: "Contact Us",
+  },
+  es: {
+    title: "Transformando Ideas en Potentes Soluciones de Software",
+    description:
+      "HackZit es una empresa de desarrollo de software full-stack especializada en aplicaciones personalizadas, soluciones móviles, software empresarial y tecnologías de vanguardia.",
+    projects: "Nuestros Proyectos",
+    contact: "Contáctanos",
+  },
 };
 
-// Initial particles are generated immediately
-const initialParticles = generateParticles(15);
-
 const HeroSection = () => {
-  // No need for useState and useEffect anymore since particles are generated right away
-  const particles = initialParticles;
+  const { language } = useLanguage();
+  const t = translations[language];
+
+  // Generate random particles
+  const particles = useMemo(() => {
+    return Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 100 + 50,
+      opacity: Math.random() * 0.2 + 0.1,
+      duration: Math.random() * 20 + 15,
+    }));
+  }, []);
 
   return (
     <section
@@ -77,7 +93,7 @@ const HeroSection = () => {
               transition={{ duration: 0.5 }}
             >
               <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                Transforming Ideas Into Powerful Software Solutions
+                {t.title}
               </h1>
             </motion.div>
 
@@ -87,9 +103,7 @@ const HeroSection = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              HackZit is a full-stack software development company specializing
-              in custom applications, mobile solutions, enterprise software, and
-              cutting-edge technologies.
+              {t.description}
             </motion.p>
 
             <motion.div
@@ -103,14 +117,14 @@ const HeroSection = () => {
                 className="px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-md transition-colors duration-300"
                 onClick={(e) => smoothScrollTo(e, "projects")}
               >
-                Our Projects
+                {t.projects}
               </a>
               <a
                 href="#contact"
                 className="px-8 py-3 border border-accent hover:bg-accent/10 text-text rounded-md transition-colors duration-300"
                 onClick={(e) => smoothScrollTo(e, "contact")}
               >
-                Contact Us
+                {t.contact}
               </a>
             </motion.div>
           </div>

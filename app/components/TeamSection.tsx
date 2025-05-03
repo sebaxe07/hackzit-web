@@ -4,50 +4,105 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
 import Image from "next/image";
+import { useLanguage } from "../contexts/LanguageContext";
 
-const teamMembers = [
-  {
-    id: 1,
-    name: "Sebastian Perea",
-    role: "Founder & Lead Developer",
-    bio: "A passionate software engineer and creative thinker pursuing a Double Degree at Politecnico di Milano. With experience building innovative solutions, from web applications to interactive simulations.",
-    image: "/PictureSebas.jpg",
-    github: "https://github.com/sebaxe07",
-    linkedin: "https://www.linkedin.com/in/sebastian-perea-lopez-7a4005206",
+// Translations for team section
+const translations = {
+  en: {
+    sectionTitle: "Meet Our Team",
+    sectionDescription:
+      "The talented developers and designers behind HackZit's innovative solutions.",
+    teamMembers: [
+      {
+        id: 1,
+        name: "Sebastian Perea",
+        role: "Founder & Lead Developer",
+        bio: "A passionate software engineer and creative thinker pursuing a Double Master's Degree at Politecnico di Milano. With experience building innovative solutions, from web applications to interactive simulations.",
+        image: "/PictureSebas.jpg",
+        github: "https://github.com/sebaxe07",
+        linkedin: "https://www.linkedin.com/in/sebastian-perea-lopez-7a4005206",
+      },
+      {
+        id: 2,
+        name: "Christian Manga",
+        role: "Co-founder & Full stack Developer",
+        bio: "Bilingual Systems and Computer Engineer with expertise in web and mobile development across various industries, specializing in database structuring, front-end design, and back-end development.",
+        image: "/PictureChris.jpg",
+        github: "https://github.com/ChristianMA19",
+        linkedin:
+          "https://www.linkedin.com/in/christiandavidmangaarrazola-webdeveloper/",
+      },
+      {
+        id: 3,
+        name: "Carlos Otero",
+        role: "Co-founder & Front-end Developer",
+        bio: "Computer science major and systems engineer with a lifelong passion for technology and innovation. Strong foundation in developing user-friendly applications and front-end interfaces.",
+        image: "/PictureCarlos.jpg",
+        github: "https://github.com/carlos204658",
+        linkedin: "https://www.linkedin.com/in/carlos-otero-926846300/",
+      },
+      {
+        id: 4,
+        name: "Marcela Rivaldo",
+        role: "Creative Director",
+        bio: "Graphic Designer and Illustrator specializing in user-centered solutions. Combines strategic vision with creative exploration to craft bold visual identities and digital experiences that elevate brand perception.",
+        image: "/PictureMarce.jpg",
+        web: "https://marcelarivaldo.myportfolio.com/",
+        linkedin: "https://www.linkedin.com/in/dayana-marcela-rivaldo/",
+      },
+    ],
   },
-  {
-    id: 2,
-    name: "Christian Manga",
-    role: "Co-founder & Full stack Developer",
-    bio: "Bilingual Systems and Computer Engineer with expertise in web and mobile development across various industries, specializing in database structuring, front-end design, and back-end development.",
-    image: "/PictureChris.jpg",
-    github: "https://github.com/ChristianMA19",
-    linkedin:
-      "https://www.linkedin.com/in/christiandavidmangaarrazola-webdeveloper/",
+  es: {
+    sectionTitle: "Conoce a Nuestro Equipo",
+    sectionDescription:
+      "Los talentosos desarrolladores y diseñadores detrás de las soluciones innovadoras de HackZit.",
+    teamMembers: [
+      {
+        id: 1,
+        name: "Sebastian Perea",
+        role: "Fundador y Desarrollador Principal",
+        bio: "Maestro de Ciencias en ingenieria de software apasionado y pensador creativo cursando un Doble Grado en el Politecnico di Milano. Con experiencia en la creación de soluciones innovadoras, desde aplicaciones web hasta simulaciones interactivas.",
+        image: "/PictureSebas.jpg",
+        github: "https://github.com/sebaxe07",
+        linkedin: "https://www.linkedin.com/in/sebastian-perea-lopez-7a4005206",
+      },
+      {
+        id: 2,
+        name: "Christian Manga",
+        role: "Cofundador y Desarrollador Full Stack",
+        bio: "Ingeniero de Sistemas y Computación bilingüe con experiencia en desarrollo web y móvil en diversas industrias, especializado en estructuración de bases de datos, diseño front-end y desarrollo back-end.",
+        image: "/PictureChris.jpg",
+        github: "https://github.com/ChristianMA19",
+        linkedin:
+          "https://www.linkedin.com/in/christiandavidmangaarrazola-webdeveloper/",
+      },
+      {
+        id: 3,
+        name: "Carlos Otero",
+        role: "Cofundador y Desarrollador Front-end",
+        bio: "Master en Ciencias de la Computación e Ingeniero de Sistemas con una pasión de toda la vida por la tecnología y la innovación. Sólida formación en el desarrollo de aplicaciones amigables para el usuario e interfaces front-end.",
+        image: "/PictureCarlos.jpg",
+        github: "https://github.com/carlos204658",
+        linkedin: "https://www.linkedin.com/in/carlos-otero-926846300/",
+      },
+      {
+        id: 4,
+        name: "Marcela Rivaldo",
+        role: "Directora Creativa",
+        bio: "Diseñadora gráfica e ilustradora especializada en soluciones centradas en el usuario. Combina visión estratégica con exploración creativa para crear identidades visuales audaces y experiencias digitales que elevan la percepción de la marca.",
+        image: "/PictureMarce.jpg",
+        web: "https://marcelarivaldo.myportfolio.com/",
+        linkedin: "https://www.linkedin.com/in/dayana-marcela-rivaldo/",
+      },
+    ],
   },
-  {
-    id: 3,
-    name: "Carlos Otero",
-    role: "Co-founder & Front-end Developer",
-    bio: "Systems Engineer with a passion for technology and a focus on web development. Experienced in creating user-friendly applications and optimizing performance.",
-    image: "/PictureCarlos.jpg",
-    github: "https://github.com/carlos204658",
-    linkedin: "https://www.linkedin.com/in/carlos-otero-926846300/",
-  },
-  {
-    id: 4,
-    name: "Marcela Rivaldo",
-    role: "Creative Director",
-    bio: "Graphic Designer and Illustrator specializing in user-centered solutions. Combines strategic vision with creative exploration to craft bold visual identities and digital experiences that elevate brand perception.",
-    image: "/PictureMarce.jpg",
-    web: "https://marcelarivaldo.myportfolio.com/",
-    linkedin: "https://www.linkedin.com/in/dayana-marcela-rivaldo/",
-  },
-];
+};
 
 const TeamSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+  const { language } = useLanguage();
+  const t = translations[language];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -79,11 +134,10 @@ const TeamSection = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-            Meet Our Team
+            {t.sectionTitle}
           </h2>
           <p className="text-xl text-text/80 max-w-2xl mx-auto">
-            The talented developers and designers behind HackZit&apos;s
-            innovative solutions.
+            {t.sectionDescription}
           </p>
         </motion.div>
 
@@ -94,7 +148,7 @@ const TeamSection = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center mx-auto"
           style={{ maxWidth: "fit-content" }}
         >
-          {teamMembers.map((member) => (
+          {t.teamMembers.map((member) => (
             <motion.div
               key={member.id}
               variants={itemVariants}
