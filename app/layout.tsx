@@ -17,8 +17,69 @@ export const metadata: Metadata = {
   title: "HackZit - Software Development Company",
   description:
     "Full-stack software development company specializing in custom applications, mobile solutions, enterprise software, and cutting-edge technologies.",
+  keywords:
+    "software development, web development, mobile apps, custom software, technology solutions, HackZit",
+  authors: [{ name: "HackZit Team" }],
+  creator: "HackZit",
+  publisher: "HackZit",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://hackzit.dev"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/en",
+      "es-ES": "/es",
+      "th-TH": "/th",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://hackzit.dev/",
+    siteName: "HackZit",
+    title: "HackZit - Custom Software Development Solutions",
+    description:
+      "Full-stack software development company specializing in custom applications, mobile solutions, enterprise software, and cutting-edge technologies.",
+    images: [
+      {
+        url: "https://hackzit.dev/HACKZIT_LOGO/3x/GroupLogo.png",
+        width: 1200,
+        height: 630,
+        alt: "HackZit Software Development",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HackZit - Custom Software Development Solutions",
+    description:
+      "Full-stack software development company specializing in custom applications, mobile solutions, enterprise software, and cutting-edge technologies.",
+    images: ["https://hackzit.dev/HACKZIT_LOGO/3x/GroupLogo.png"],
+    creator: "@hackzit",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+    other: {
+      rel: "apple-touch-icon-precomposed",
+      url: "/apple-touch-icon-precomposed.png",
+    },
   },
 };
 

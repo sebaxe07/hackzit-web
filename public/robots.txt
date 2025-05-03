@@ -1,0 +1,10 @@
+# Allow all web crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://hackzit.dev/sitemap.xml
+
+# Crawl-delay for Googlebot
+User-agent: Googlebot
+Crawl-delay: 1
