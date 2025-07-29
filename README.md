@@ -1,8 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HackZit - Software Development Company Website
 
-## Getting Started
+HackZit's official website - A modern, bilingual portfolio and company website built with Next.js showcasing our software development services, projects, and team.
 
-First, run the development server:
+## 🌟 Features
+
+- **Bilingual Support**: Full English and Spanish localization
+- **Modern Design**: Clean, responsive UI with smooth animations
+- **SEO Optimized**: Comprehensive SEO with structured data for enhanced search visibility
+- **Interactive Elements**: Custom cursor, ripple effects, and smooth scrolling
+- **Performance Focused**: Built with Next.js 15 and optimized for speed
+- **Mobile-First**: Fully responsive design across all devices
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 15.3.1 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **Icons**: React Icons
+- **Analytics**: Vercel Analytics
+- **Development**: Turbopack for fast development builds
+
+## 📱 Website Sections
+
+- **Hero Section**: Company introduction and call-to-action
+- **Services**: Software development services offered
+- **Technologies**: Tech stack and expertise showcase
+- **Projects**: Portfolio of completed work
+- **Team**: Meet the HackZit team members
+- **Contact**: Get in touch with the company
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/sebaxe07/hackzit-web.git
+cd hackzit-web
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +64,102 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+hackzit-web/
+├── app/
+│   ├── components/          # Reusable UI components
+│   │   ├── BackToTopButton.tsx
+│   │   ├── ContactSection.tsx
+│   │   ├── CustomCursor.tsx
+│   │   ├── Footer.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── ProjectsSection.tsx
+│   │   ├── SEO.tsx
+│   │   ├── ServicesSection.tsx
+│   │   ├── TeamSection.tsx
+│   │   └── TechnologiesSection.tsx
+│   ├── contexts/            # React contexts
+│   │   └── LanguageContext.tsx
+│   ├── data/               # Static data files
+│   │   └── projects.json
+│   ├── lib/                # Utility functions
+│   │   └── scrollUtils.ts
+│   ├── globals.css         # Global styles
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Home page
+├── public/                 # Static assets
+│   ├── HACKZIT_LOGO/      # Company logos
+│   ├── team photos/        # Team member photos
+│   └── icons/             # Various icons
+└── Configuration files
+```
 
-## Learn More
+## 🌐 Internationalization
 
-To learn more about Next.js, take a look at the following resources:
+The website supports both English and Spanish languages with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Dynamic language switching
+- Localized content for all sections
+- SEO optimization for both languages
+- Context-based translation management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Available Scripts
 
-## Deploy on Vercel
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build the application for production
+- `npm run start` - Start the production server
+- `npm run lint` - Run ESLint for code quality
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📊 SEO & Analytics
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Comprehensive meta tags and Open Graph data
+- Structured data for enhanced search results
+- Vercel Analytics integration
+- Sitemap and robots.txt included
+
+## 🚀 Deployment
+
+### Deploy on Vercel (Recommended)
+
+The easiest way to deploy is using the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sebaxe07/hackzit-web)
+
+### Other Deployment Options
+
+This Next.js application can be deployed on any platform that supports Node.js:
+
+- Netlify
+- AWS Amplify
+- Railway
+- DigitalOcean App Platform
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is private and proprietary to HackZit.
+
+## 📧 Contact
+
+For any questions or inquiries:
+
+- Website: [hackzit.com](https://hackzit.com)
+- Email: contact@hackzit.com
+
+---
+
+Built with ❤️ by the HackZit team
